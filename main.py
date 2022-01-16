@@ -3,6 +3,7 @@
 
 from pprint import pprint
 from src.corporation import corporation
+import sys
 
 
 def main(cert_key):
@@ -18,3 +19,8 @@ def main(cert_key):
     corp = corporation(cert_key, corp_code, bsns_year, reprt_code)
     info_arr = corp.main_account_info()
     pprint([*map(lambda x: (x['thstrm_dt'], x['fs_nm'], x['account_nm'], x['thstrm_amount']), info_arr)])
+
+
+if __name__ == "__main__":
+    
+    main(sys.argv[1])
