@@ -3,8 +3,8 @@
 
 from pprint import pprint
 from src.corporation import corporation
-import sys
-
+import issue
+import sys, datetime
 
 def main(cert_key):
 
@@ -18,9 +18,13 @@ def main(cert_key):
 
     corp = corporation(cert_key, corp_code, bsns_year, reprt_code)
     info_arr = corp.main_account_info()
-    pprint([*map(lambda x: (x['thstrm_dt'], x['fs_nm'], x['account_nm'], x['thstrm_amount']), info_arr)])
+    res = [*map(lambda x: (x['thstrm_dt'], x['fs_nm'], x['account_nm'], x['thstrm_amount']), info_arr)]
+    pprint(res)
+
+    return res
 
 
 if __name__ == "__main__":
-    
-    main(sys.argv[1])
+
+    ret = main(sys.argv[1])
+    issue.create_issue(title=str(datetime.datetime.now()), body=str(ret))

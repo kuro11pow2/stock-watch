@@ -7,7 +7,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      KEY: ${{ secrets.OPENDART_KEY }}
+      OPENDART_KEY: ${{ secrets.OPENDART_KEY }}
+      MY_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
@@ -31,4 +32,4 @@ jobs:
       run: pip list
 
     - name: run script
-      run: python ./main.py $KEY
+      run: python ./main.py $OPENDART_KEY
