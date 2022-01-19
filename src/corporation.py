@@ -2,7 +2,7 @@
 import requests, json
 
 
-class corporation:
+class Corporation:
 
     def __init__(self, crtfc_key, corp_code, bsns_year, reprt_code):
         self._url = 'https://opendart.fss.or.kr/api/'

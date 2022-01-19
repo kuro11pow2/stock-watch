@@ -2,9 +2,9 @@
 
 
 from pprint import pprint
-from src.corporation import corporation
-import issue
+from src.corporation import Corporation
 import sys, datetime
+
 
 def main(cert_key):
 
@@ -16,7 +16,7 @@ def main(cert_key):
     # 3분기보고서 : 11014
     # 사업보고서 : 11011
 
-    corp = corporation(cert_key, corp_code, bsns_year, reprt_code)
+    corp = Corporation(cert_key, corp_code, bsns_year, reprt_code)
     info_arr = corp.main_account_info()
     res = [*map(lambda x: (x['thstrm_dt'], x['fs_nm'], x['account_nm'], x['thstrm_amount']), info_arr)]
     pprint(res)
@@ -24,7 +24,21 @@ def main(cert_key):
     return res
 
 
+def table_to_markdown_str(table) -> str:
+    return str(table)
+
+
 if __name__ == "__main__":
 
+    import os
+    from src.issue import Issue
+
     ret = main(sys.argv[1])
-    issue.create_issue(title=str(datetime.datetime.now()), body=str(ret))
+
+    gh_token = os.environ['MY_GITHUB_TOKEN']
+    repo_name = "kuro11pow2/stock-watch"
+    title=str(datetime.datetime.now())
+    body=table_to_markdown_str(ret)
+    issue = Issue(repo_name, gh_token, title, body)
+
+    issue.create_issue()
