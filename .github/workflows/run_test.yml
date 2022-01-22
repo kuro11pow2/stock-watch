@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       OPENDART_KEY: ${{ secrets.OPENDART_KEY }}
+      DATAKR_STOCK_KEY: ${{ secrets.DATAKR_STOCKPRICE_KEY }}
       MY_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - uses: actions/checkout@v2
@@ -32,4 +33,4 @@ jobs:
       run: pip list
 
     - name: run script
-      run: python ./main.py $OPENDART_KEY
+      run: python ./main.py $OPENDART_KEY $DATAKR_STOCK_KEY

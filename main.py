@@ -49,9 +49,9 @@ if __name__ == "__main__":
     import os
     from src.issue import Issue
 
-    corp_code = sys.argv[1]
-    dart_key = sys.argv[2]
-    stock_key = sys.argv[3]
+    corp_code = '00126380'
+    dart_key = sys.argv[1]
+    stock_key = sys.argv[2]
 
     ret = main(corp_code, dart_key, stock_key)
 
