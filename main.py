@@ -16,10 +16,11 @@ def dart_demo(corp: Corporation):
     bsns_year = '2020'
 
     info_arr = corp.main_account_info(bsns_year, reprt_code)
-    res = [*map(lambda x: (x['thstrm_dt'], x['fs_nm'], x['account_nm'], x['thstrm_amount']), info_arr)]
-    pprint(res)
 
-    return res
+    # info_arr = [*map(lambda x: (x['thstrm_dt'], x['fs_nm'], x['account_nm'], x['thstrm_amount']), info_arr)]
+    pprint(info_arr)
+
+    return info_arr
 
 
 def stock_demo(corp: Corporation):
@@ -34,8 +35,8 @@ def main(corp_code, dart_key, stock_key):
     corp = Corporation(corp_code, dart_key, stock_key)
 
     ret = ''
-    ret += dart_demo(corp) + '\n\n'
-    ret += stock_demo(corp)
+    ret += str(dart_demo(corp)) + '\n\n'
+    ret += str(stock_demo(corp))
 
     return ret
 
