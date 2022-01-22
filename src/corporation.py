@@ -1,29 +1,34 @@
 
 import requests, json
+from src.dart import Dart
+from src.stock import Stock
 
+TMP_YEAR = '2020'
+TMP_REPRT_CODE = '11011'
 
 class Corporation:
 
-    def __init__(self, crtfc_key, corp_code, bsns_year, reprt_code):
-        self._url = 'https://opendart.fss.or.kr/api/'
-        self._cert_key = crtfc_key
-        self._corp_code = corp_code
-        self._business_year = bsns_year
-        self._report_code = reprt_code
-        self._return_type = '.json'
-        self._main_account_info = None
+    def __init__(self, dart_corp_code, dart_cert_key, open_stock_price_key):
+        self.corp_code = dart_corp_code
+        self.stock_code = None
+        self.dart_cert_key = dart_cert_key
+        self.open_stock_price_key = open_stock_price_key
     
-    def main_account_info(self):
-        if self._main_account_info is None:
-            target = 'fnlttSinglAcnt'
-            params = self._request_params()
-            response = requests.get(url=self._url + target + self._return_type, params=params)
-            self._main_account_info = json.loads(response.text)
+    def main_account_info(self, bsns_year, reprt_code):
+        res = Dart(self.corp_code, bsns_year, reprt_code, self.dart_cert_key).main_account_info()
 
-        return self._main_account_info['list']
+        if self.stock_code == None and len(res) > 0:
+            self.stock_code = res[0]['stock_code']
 
-    def clear_cache(self):
-        self.__init__(self._cert_key, self._corp_code, self._business_year, self._report_code)
+        return res
 
-    def _request_params(self):
-        return {'crtfc_key': self._cert_key , 'corp_code': self._corp_code, 'bsns_year': self._business_year, 'reprt_code': self._report_code}
+    def stock_price(self):
+        if self.stock_code == None:
+            res = Dart(self.corp_code, TMP_YEAR, TMP_REPRT_CODE, self.dart_cert_key).main_account_info()
+
+            if len(res) > 0:
+                self.stock_code = res[0]['stock_code']
+
+        res = Stock(self.stock_code, self.open_stock_price_key).stock_price()
+
+        return res
