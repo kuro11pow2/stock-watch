@@ -4,7 +4,6 @@
 from pprint import pprint
 from src.corporation import Corporation
 import sys, datetime
-import requests, json
 
 def dart_demo(corp: Corporation):
     
