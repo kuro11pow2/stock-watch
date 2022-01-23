@@ -30,18 +30,18 @@ def stock_demo(corp: Corporation):
     return info_arr
 
 
-def main(corp_code, dart_key, stock_key):
-    corp = Corporation(corp_code, dart_key, stock_key)
-
-    ret = ''
-    ret += str(dart_demo(corp)) + '\n\n'
-    ret += str(stock_demo(corp))
-
-    return ret
-
-
 def table_to_markdown_str(table) -> str:
     return str(table)
+
+
+def main(corp_code_list, dart_key, stock_key):
+    res = []
+
+    for corp_code in corp_code_list:
+        corp = Corporation(corp_code, dart_key, stock_key)
+        res.append((corp.corp_code(), corp.corp_name(), corp.stock_code()))
+
+    return res
 
 
 if __name__ == "__main__":
@@ -49,16 +49,16 @@ if __name__ == "__main__":
     import os
     from src.issue import Issue
 
-    corp_code = '00126380'
+    CORP_CODE = sorted(['00261443', '00760971', '00904672', '01152470', '01010110', '01137383', '01008762'])
     dart_key = sys.argv[1]
     stock_key = sys.argv[2]
 
-    ret = main(corp_code, dart_key, stock_key)
+    issue_body_str = str(main(CORP_CODE, dart_key, stock_key))
 
-    gh_token = os.environ['MY_GITHUB_TOKEN']
     repo_name = "kuro11pow2/stock-watch"
+    gh_token = os.environ['MY_GITHUB_TOKEN']
     title=str(datetime.datetime.now())
-    body=table_to_markdown_str(ret)
+    body=issue_body_str
     issue = Issue(repo_name, gh_token, title, body)
 
     issue.create_issue()
