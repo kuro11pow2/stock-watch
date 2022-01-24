@@ -34,7 +34,8 @@ def table_to_markdown_str(table) -> str:
     return str(table)
 
 
-def main(corp_code_list, dart_key, stock_key):
+def main(dart_key, stock_key):
+    corp_code_list = sorted(['00261443', '00760971', '00904672', '01152470', '01010110', '01137383', '01008762'])
     res = []
 
     for corp_code in corp_code_list:
@@ -49,11 +50,10 @@ if __name__ == "__main__":
     import os
     from src.issue import Issue
 
-    CORP_CODE = sorted(['00261443', '00760971', '00904672', '01152470', '01010110', '01137383', '01008762'])
     dart_key = sys.argv[1]
     stock_key = sys.argv[2]
 
-    issue_body_str = str(main(CORP_CODE, dart_key, stock_key))
+    issue_body_str = str(main(dart_key, stock_key))
 
     repo_name = "kuro11pow2/stock-watch"
     gh_token = os.environ['MY_GITHUB_TOKEN']
