@@ -39,5 +39,8 @@ class Corporation:
     def main_account_info(self, bsns_year, reprt_code):
         return self.dart().main_account_info(bsns_year, reprt_code)
 
-    def stock_price(self):
-        return self.stock().stock_price()
+    def stock_info(self):
+        return self.stock().stock_info()
+
+    def stock_price_close(self):
+        return self.stock().stock_price_close()

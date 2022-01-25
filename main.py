@@ -1,7 +1,5 @@
-# https://opendart.fss.or.kr/guide/detail.do?apiGrpCd=DS003&apiId=2019016
 
-
-from pprint import pprint
+from pprint import pformat, pprint
 from src.corporation import Corporation
 import sys, datetime
 
@@ -40,7 +38,7 @@ def main(dart_key, stock_key):
 
     for corp_code in corp_code_list:
         corp = Corporation(corp_code, dart_key, stock_key)
-        res.append((corp.corp_code(), corp.corp_name(), corp.stock_code()))
+        res.append((corp.corp_code(), corp.corp_name(), corp.stock_code(), corp.stock_price_close()))
 
     return res
 
@@ -53,7 +51,7 @@ if __name__ == "__main__":
     dart_key = sys.argv[1]
     stock_key = sys.argv[2]
 
-    issue_body_str = str(main(dart_key, stock_key))
+    issue_body_str = pformat(main(dart_key, stock_key))
 
     repo_name = "kuro11pow2/stock-watch"
     gh_token = os.environ['MY_GITHUB_TOKEN']
