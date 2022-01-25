@@ -1,6 +1,8 @@
 from typing import List
 import requests, json
 
+# https://opendart.fss.or.kr/guide/detail.do?apiGrpCd=DS003&apiId=2019016
+
 class Dart:
 
     def __init__(self, corp_code, crtfc_key):
