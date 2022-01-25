@@ -67,26 +67,28 @@ class Stock:
         self._url = "https://api.odcloud.kr/api/GetStockSecuritiesInfoService/v1/getStockPriceInfo"
         self._stock_code = stock_code
         self._cert_key = cert_key
-        self._stock_price = None
+        self._response = None
+        self._stock_info_list = None
 
-    def _get_stock_info(self):
-        if self._stock_price is None:
+    def stock_info_list(self):
+        if self._stock_info_list is None:
+            self._stock_info_list = self._get_response()['response']['body']['items']['item']
+
+        return self._stock_info_list
+
+    def stock_price_close(self):
+        recent = self.stock_info_list()[0]
+        return (recent['basDt'], recent['clpr'])
+
+    def _get_response(self):
+        if self._response is None:
             print(f'\n[stock 조회 {self._stock_code=}]')
             params = {'serviceKey': self._cert_key , 'resultType': 'json', 'likeSrtnCd': self._stock_code}
             response = requests.get(url=self._url, params=params)
 
-            self._stock_price = json.loads(response.text)
+            self._response = json.loads(response.text)
+        
+        return self._response
 
-    def stock_info(self):
-        self._get_stock_info()
-
-        return self._stock_price['response']['body']['items']['item']
-
-    def stock_price_close(self):
-        self._get_stock_info()
-
-        recent = self._stock_price['response']['body']['items']['item'][0]
-        return (recent['basDt'], recent['clpr'])
-
-    def clear_cache(self):
+    def _clear_cache(self):
         self.__init__(self._stock_code, self._cert_key)
