@@ -3,29 +3,30 @@ from pprint import pformat, pprint
 from src.corporation import Corporation
 import sys, datetime
 
-def dart_demo(corp: Corporation):
-    
+
+def finance_test(corp: Corporation):
+
     # 1분기보고서 : 11013
     # 반기보고서 : 11012
     # 3분기보고서 : 11014
     # 사업보고서 : 11011
-    reprt_code = '11011'
+
     bsns_year = '2020'
+    reprt_code = '11011'
 
-    info_arr = corp.main_account_info(bsns_year, reprt_code)
-
-    # info_arr = [*map(lambda x: (x['thstrm_dt'], x['fs_nm'], x['account_nm'], x['thstrm_amount']), info_arr)]
-    pprint(info_arr)
-
-    return info_arr
-
-
-def stock_demo(corp: Corporation):
+    print("-------[ finance 테스트 ]-------")
+    pprint(f'{corp.company_info_raw()=}')
+    pprint(f'{corp.corp_name()=}')
+    pprint(f'{corp.stock_code()=}')
     
-    info_arr = corp.stock_price()
-    pprint(info_arr)
+    pprint(f'{corp.main_account_info_raw(bsns_year, reprt_code)=}')
 
-    return info_arr
+
+def stock_test(corp: Corporation):
+    print("-------[ stock 테스트 ]-------")
+    pprint(f'{corp.stock_info_raw()=}')
+    pprint(f'{corp.stock_info_list()=}')
+    pprint(f'{corp.stock_price_close()=}')
 
 
 def table_to_markdown_str(table) -> str:
@@ -38,6 +39,8 @@ def main(dart_key, stock_key):
 
     for corp_code in corp_code_list:
         corp = Corporation(corp_code, dart_key, stock_key)
+        # finance_test(corp)
+        # stock_test(corp)
         res.append((corp.corp_code(), corp.corp_name(), corp.stock_code(), corp.stock_price_close()))
 
     return res
