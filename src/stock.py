@@ -1,8 +1,6 @@
 
 from abc import ABCMeta
 from abc import *
-import json
-from src.request import Request
 
 class Stock(metaclass=ABCMeta):
 
@@ -16,9 +14,6 @@ class Stock(metaclass=ABCMeta):
 
     def stock_code(self):
         return self._stock_code
-
-    def _clear_cache(self):
-        self.__init__(self.stock_code(), self._cert_key, self._url)
 
     @abstractmethod
     def stock_info_raw(self, params=None):

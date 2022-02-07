@@ -1,5 +1,5 @@
 
-from src.finance import Finance
+from src.dart_finance import DartFinance
 from src.fsc_stock import FscStock
 
 TMP_YEAR = '2020'
@@ -20,7 +20,7 @@ class Corporation:
 
     def finance(self):
         if self._finance == None:
-            self._finance = Finance(self.corp_code(), self._finance_cert_key)
+            self._finance = DartFinance(self.corp_code(), self._finance_cert_key)
 
         return self._finance
 

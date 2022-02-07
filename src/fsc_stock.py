@@ -3,6 +3,7 @@ from src.request import Request
 from src.stock import Stock
 
 class FscStock(Stock):
+    
     def __init__(self, stock_code, cert_key):
         super(FscStock, self).__init__(stock_code, cert_key, "https://api.odcloud.kr/api/GetStockSecuritiesInfoService/v1/getStockPriceInfo")
 
