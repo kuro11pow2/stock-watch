@@ -1,4 +1,3 @@
-
 import json
 from src.request import Request
 
@@ -24,6 +23,12 @@ class Finance:
             self._company_info_raw = json.loads(response.text)
 
         return self._company_info_raw
+
+    def stock_code(self):
+        return self.company_info_raw()['stock_code']
+
+    def corp_name(self):
+        return self.company_info_raw()['corp_name']
     
     def main_account_info_raw(self, bsns_year, reprt_code):
         if self._main_account_info_raw is None:

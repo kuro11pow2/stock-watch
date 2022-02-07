@@ -1,6 +1,6 @@
 
 from src.finance import Finance
-from src.stock import FscStock
+from src.fsc_stock import FscStock
 
 TMP_YEAR = '2020'
 TMP_REPRT_CODE = '11011'
@@ -34,10 +34,10 @@ class Corporation:
         return self.finance().company_info_raw()
 
     def stock_code(self):
-        return self.finance().company_info_raw()['stock_code']
+        return self.finance().stock_code()
     
     def corp_name(self):
-        return self.finance().company_info_raw()['corp_name']
+        return self.finance().corp_name()
         
     def main_account_info_raw(self, bsns_year, reprt_code):
         return self.finance().main_account_info_raw(bsns_year, reprt_code)
