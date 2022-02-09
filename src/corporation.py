@@ -1,6 +1,6 @@
 
-from src.dart_finance import DartFinance
-from src.fsc_stock import FscStock
+from src.finance_dart import FinanceDart
+from src.stock_fsc import StockFsc
 
 TMP_YEAR = '2020'
 TMP_REPRT_CODE = '11011'
@@ -20,13 +20,13 @@ class Corporation:
 
     def finance(self):
         if self._finance == None:
-            self._finance = DartFinance(self.corp_code(), self._finance_cert_key)
+            self._finance = FinanceDart(self.corp_code(), self._finance_cert_key)
 
         return self._finance
 
     def stock(self):
         if self._stock == None:
-            self._stock = FscStock(self.stock_code(), self._open_stock_price_key)
+            self._stock = StockFsc(self.stock_code(), self._open_stock_price_key)
 
         return self._stock
 

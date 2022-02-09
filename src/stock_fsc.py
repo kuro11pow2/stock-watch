@@ -2,10 +2,10 @@ import json
 from src.request import Request
 from src.stock import Stock
 
-class FscStock(Stock):
+class StockFsc(Stock):
     
     def __init__(self, stock_code, cert_key):
-        super(FscStock, self).__init__(stock_code, cert_key, "https://api.odcloud.kr/api/GetStockSecuritiesInfoService/v1/getStockPriceInfo")
+        super(StockFsc, self).__init__(stock_code, cert_key, "https://api.odcloud.kr/api/GetStockSecuritiesInfoService/v1/getStockPriceInfo")
 
     def stock_info_raw(self, params=None):
         """
@@ -36,7 +36,7 @@ class FscStock(Stock):
         }
         """
         if self._stock_info_raw is None:
-            print(f'INFO: fsc-stock stock_info_raw 조회 {self.stock_code()=}')
+            print(f'INFO: fsc stock_info_raw 조회 {self.stock_code()=}')
             if params == None:
                 params = {'serviceKey': self._cert_key, 
                             'resultType': 'json', 

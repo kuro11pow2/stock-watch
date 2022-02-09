@@ -3,10 +3,10 @@ from src.request import Request
 from src.finance import Finance
 
 # https://opendart.fss.or.kr/guide/detail.do?apiGrpCd=DS003&apiId=2019016
-class DartFinance(Finance):
+class FinanceDart(Finance):
 
     def __init__(self, corp_code, crtfc_key):
-        super(DartFinance, self).__init__(corp_code, crtfc_key, ".json", "https://opendart.fss.or.kr/api/")
+        super(FinanceDart, self).__init__(corp_code, crtfc_key, ".json", "https://opendart.fss.or.kr/api/")
 
     def company_info_raw(self):
         if self._company_info_raw is None:
